@@ -160,9 +160,27 @@ CREATE TABLE books (
 
 ## Joins
 
+#### `books` Table
+
+| book_id | title                | author_id | year_published |
+|---------|-----------------------|-----------|----------------|
+| 1       | The Great Gatsby      | 1         | 1925           |
+| 2       | 1984                  | 2         | 1949           |
+| 3       | To Kill a Mockingbird | 3         | 1960           |
+| 4       | The Catcher in the Rye| NULL      | 1951           |
+
+#### `authors` Table
+
+| author_id | name                |
+|-----------|---------------------|
+| 1         | F. Scott Fitzgerald |
+| 2         | George Orwell       |
+| 3         | Harper Lee          |
+| 4         | J.D. Salinger       |
+
 ### INNER JOIN
 
-Return records that have matching values in both `books` and `authors` tables:
+An **INNER JOIN** returns only the rows that have matching values in both tables.
 
 ```sql
 SELECT books.title, authors.name 
@@ -170,9 +188,17 @@ FROM books
 INNER JOIN authors ON books.author_id = authors.author_id;
 ```
 
+#### Result
+
+| title                | name                |
+|----------------------|---------------------|
+| The Great Gatsby     | F. Scott Fitzgerald |
+| 1984                 | George Orwell       |
+| To Kill a Mockingbird| Harper Lee          |
+
 ### LEFT JOIN
 
-Return all records from the `books` table and matching records from the `authors` table:
+A **LEFT JOIN** returns all records from the left table (books), and the matched records from the right table (authors). The result is NULL from the right side if there is no match.
 
 ```sql
 SELECT books.title, authors.name 
@@ -180,9 +206,18 @@ FROM books
 LEFT JOIN authors ON books.author_id = authors.author_id;
 ```
 
+#### Result
+
+| title                | name                |
+|----------------------|---------------------|
+| The Great Gatsby     | F. Scott Fitzgerald |
+| 1984                 | George Orwell       |
+| To Kill a Mockingbird| Harper Lee          |
+| The Catcher in the Rye| NULL                |
+
 ### RIGHT JOIN
 
-Return all records from the `authors` table and matching records from the `books` table:
+A **RIGHT JOIN** returns all records from the right table (authors), and the matched records from the left table (books). The result is NULL from the left side if there is no match.
 
 ```sql
 SELECT books.title, authors.name 
@@ -190,15 +225,34 @@ FROM books
 RIGHT JOIN authors ON books.author_id = authors.author_id;
 ```
 
+#### Result
+
+| title                | name                |
+|----------------------|---------------------|
+| The Great Gatsby     | F. Scott Fitzgerald |
+| 1984                 | George Orwell       |
+| To Kill a Mockingbird| Harper Lee          |
+| NULL                 | J.D. Salinger       |
+
 ### FULL OUTER JOIN
 
-Return all records when there is a match in either `books` or `authors` table:
+A **FULL OUTER JOIN** returns all records when there is a match in either left (books) or right (authors) table records. If there is no match, the result is NULL on the side that doesn't have a match.
 
 ```sql
 SELECT books.title, authors.name 
 FROM books 
 FULL OUTER JOIN authors ON books.author_id = authors.author_id;
 ```
+
+#### Result
+
+| title                | name                |
+|----------------------|---------------------|
+| The Great Gatsby     | F. Scott Fitzgerald |
+| 1984                 | George Orwell       |
+| To Kill a Mockingbird| Harper Lee          |
+| The Catcher in the Rye| NULL                |
+| NULL                 | J.D. Salinger       |
 
 ## Aggregate Functions
 
